@@ -56,7 +56,7 @@ test('VerifyEmail', async ({ page }) => {
 
   await verificationPage.clickConfirmationEmail(); 
   await verificationPage.clickVerificationLink(); 
-  await page.waitForTimeout(5000);
+  await page.waitForTimeout(7000);
 });
 
 
@@ -88,9 +88,10 @@ test('Forgot Password', async ({ page }) => {
   await page.getByRole('button', { name: 'Log In' }).click();
   await page.getByRole('button', { name: 'Forgot password?' }).click();
   
-  
+  await page.waitForTimeout(3000);
   await forgotPasswordPage.fillEmail(process.env.EMAIL);
   await forgotPasswordPage.clickSendVerificationLink();
+  await page.waitForTimeout(3000);
   
   
 });
