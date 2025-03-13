@@ -43,20 +43,25 @@ test('VerifyEmail', async ({ page }) => {
 
   await page.goto(process.env.mailosaurURL);
   await verificationPage.signIn();
+  await page.waitForTimeout(5000);
   await verificationPage.clickGoogleSignIn();
   await page.waitForTimeout(5000);
-  await verificationPage.enterEmail(process.env.userEmail);
+
+  await page.getByRole('textbox', { name: 'Email or phone' }).click();
+  await page.getByRole('textbox', { name: 'Email or phone' }).fill(process.env.userEmail);
+
+  await page.getByRole('button', { name: 'Next' }).click();
   await page.waitForTimeout(5000);
   await verificationPage.enterPassword(process.env.userPass);
   await page.waitForTimeout(5000);
 
   
   await verificationPage.openInbox();  
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(5000);
 
   await verificationPage.clickConfirmationEmail(); 
   await verificationPage.clickVerificationLink(); 
-  await page.waitForTimeout(7000);
+  await page.waitForTimeout(5000);
 });
 
 
@@ -64,6 +69,7 @@ test('Sign In ', async ({ page }) => {
   const signInPage = new SignInPage(page);  
 
   await page.goto(process.env.URL);
+  await page.waitForTimeout(3000);
   await page.waitForLoadState('networkidle');
 
  
@@ -104,7 +110,10 @@ test('ResetPasswordVerification link', async ({ page }) => {
   await verificationPage.signIn();
   await verificationPage.clickGoogleSignIn();
   await page.waitForTimeout(5000);
-  await verificationPage.enterEmail(process.env.userEmail);
+  await page.getByRole('textbox', { name: 'Email or phone' }).click();
+  await page.getByRole('textbox', { name: 'Email or phone' }).fill(process.env.userEmail);
+
+  await page.getByRole('button', { name: 'Next' }).click();
   await page.waitForTimeout(5000);
   await verificationPage.enterPassword(process.env.userPass);
   await page.waitForTimeout(5000);
